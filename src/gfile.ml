@@ -112,3 +112,19 @@ let from_file path =
   close_in infile ;
   final_graph
   
+let export path graph =
+  let ff = open_out path in
+  
+  fprintf ff "digraph {\n" ;
+  fprintf ff "rankdir=LR;\n";
+  fprintf ff "node [shape = circle]\n";
+
+  e_iter graph (fun arc -> fprintf ff "%d -> %d [label = \"%s\"];\n" arc.src arc.tgt arc.lbl);
+
+  fprintf ff "}"
+
+
+
+
+  
+
