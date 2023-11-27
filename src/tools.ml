@@ -13,10 +13,12 @@ let add_arc graph id1 id2 n =
 
 let create_flow_graph graph = gmap graph (fun _ -> 0)
 
-let update_arc_flow graph src_id dest_id flow = 
+(*let update_arc_flow graph src_id dest_id flow = 
   match (find_arc graph src_id dest_id) with
   | Some arc -> arc.lbl <- arc.lbl + flow
-  | None -> ()
+  | None -> ()*)
+
+let update_arc_flow graph src_id dest_id flow = gmap graph (fun arc -> if arc.src = src_id && arc.tgt = dest_id then (arc.lbl + flow))
 
 (*let update_flow_graph graph node_ids new_flow = 
   let mylength_acu_better l =
