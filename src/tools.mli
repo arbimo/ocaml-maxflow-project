@@ -13,7 +13,7 @@ val update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph
 
 val check_if_arc_is_in_path : int arc -> int list -> bool
 
-val find_smallest_label_on_path : int graph -> int list -> int option
+val find_max_flow_on_path : int graph -> int graph -> int list -> int option
 
 
 

@@ -43,24 +43,25 @@ let check_if_arc_is_in_path : int arc -> int list -> bool =
     in
     is_arc_in_path path
 
-let find_smallest_label_on_path : int graph -> int list -> int option =
-  fun graph path ->
-    let rec find_smallest_label path =
+let find_max_flow_on_path : int graph -> int graph -> int list -> int option =
+  fun graph flow_graph path ->
+    let rec find_max_flow_on_path path =
       match path with
       | [] | [_] -> None (* A path must have at least two nodes to have arcs *)
       | node1 :: node2 :: rest ->
-        let arc_opt = find_arc graph node1 node2 in
-        match arc_opt with
-        | Some arc ->
-          let rest_label_opt = find_smallest_label (node2 :: rest) in
+        let arc1_opt = find_arc graph node1 node2 in
+        let arc2_opt = find_arc flow_graph node1 node2 in
+        match (arc1_opt, arc2_opt) with
+        | (Some arc1, Some arc2) ->
+          let rest_difference_opt = find_max_flow_on_path (node2 :: rest) in
           begin
-            match rest_label_opt with
-            | Some rest_label -> Some (min arc.lbl rest_label)
-            | None -> Some arc.lbl
+            match rest_difference_opt with
+            | Some rest_difference -> Some (min (arc1.lbl - arc2.lbl) rest_difference)
+            | None -> Some (arc1.lbl - arc2.lbl)
           end
-        | None -> None
+        | _ -> None
     in
-    find_smallest_label path
+    find_max_flow_on_path path
 
   
 
