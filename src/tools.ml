@@ -51,13 +51,22 @@ let find_max_flow_on_path : int graph -> int graph -> int list -> int option =
       | node1 :: node2 :: rest ->
         let arc1_opt = find_arc graph node1 node2 in
         let arc2_opt = find_arc flow_graph node1 node2 in
-        match (arc1_opt, arc2_opt) with
-        | (Some arc1, Some arc2) ->
+        let arc1_rev_opt = find_arc graph node2 node1 in
+        let arc2_rev_opt = find_arc flow_graph node2 node1 in
+        match (arc1_opt, arc2_opt, arc1_rev_opt, arc2_rev_opt) with
+        | (Some arc1, Some arc2, None, None) ->
           let rest_difference_opt = find_max_flow_on_path (node2 :: rest) in
           begin
             match rest_difference_opt with
             | Some rest_difference -> Some (min (arc1.lbl - arc2.lbl) rest_difference)
             | None -> Some (arc1.lbl - arc2.lbl)
+          end
+        | (None, None, Some arc1_rev, Some arc2_rev) ->
+          let rest_difference_opt = find_max_flow_on_path (node2 :: rest) in
+          begin
+            match rest_difference_opt with
+            | Some rest_difference -> Some (min (arc2_rev.lbl - arc1_rev.lbl) rest_difference)
+            | None -> Some (arc2_rev.lbl - arc1_rev.lbl)
           end
         | _ -> None
     in
