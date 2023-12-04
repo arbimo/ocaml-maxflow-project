@@ -1,6 +1,6 @@
 open Gfile
 open Tools
-open Fulkerson
+(*open Fulkerson*)
     
 let () =
 
@@ -28,26 +28,34 @@ let () =
   in
 
   (* Open file *)
-  let graph = from_file infile in
+  let string_graph = from_file infile in
+  let graph = gmap string_graph (fun x -> int_of_string x) in
 
   let flow_graph_1 = create_flow_graph graph in
 
   let path : int list = [0; 2; 4; 5] in
+  Printf.printf "Path: [%s]\n" (String.concat "; " (List.map string_of_int path)) ;
 
-  let flow_graph_2 = update_flow_graph flow_graph_1 (fun arc -> check_if_arc_is_in_path arc path) 1 in
+  let new_flow_optional : int option = find_smallest_label_on_path graph path in
+  let new_flow : int = Option.value new_flow_optional ~default:0 in
+  Printf.printf "Flow : %d\n" new_flow ;
+
+  let flow_graph_2 = update_flow_graph flow_graph_1 (fun arc -> check_if_arc_is_in_path arc path) new_flow in
 
   let string_flow_graph = gmap flow_graph_2 (fun x -> string_of_int x) in
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile string_flow_graph in
 
+  ()
+
 
   
-  (* let g = clone_nodes graph in *)
+  (*(* let g = clone_nodes graph in *)
   let () = aff (dfs graph 0 [] 3) ; 
   Printf.printf "\n\n" ;
   hash 
-  in () 
+  in () *)
 
   
 
