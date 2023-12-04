@@ -13,8 +13,8 @@ let add_arc graph id1 id2 n =
 
 let create_flow_graph graph = gmap graph (fun _ -> 0)
   
-let update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph =
-  fun original_graph condition increment ->
+let update_flow_graph : int graph -> (int arc -> bool) -> (int arc -> bool) -> int -> int graph =
+  fun original_graph condition backward_condition increment ->
     let new_graph =
       e_fold
         original_graph
@@ -22,6 +22,8 @@ let update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph =
           let modified_arc =
             if condition arc then
               { arc with lbl = arc.lbl + increment }
+            else if backward_condition arc then
+              { arc with lbl = arc.lbl - increment }
             else
               arc
           in
@@ -36,7 +38,20 @@ let check_if_arc_is_in_path : int arc -> int list -> bool =
       match path with
       | [] | [_] -> false (* A path must have at least two nodes to have an arc *)
       | node1 :: node2 :: rest ->
-        if (node1, node2) = (arc.src, arc.tgt) || (node1, node2) = (arc.tgt, arc.src) then
+        if (node1, node2) = (arc.src, arc.tgt) then
+          true
+        else
+          is_arc_in_path (node2 :: rest)
+    in
+    is_arc_in_path path
+
+let check_if_backward_arc_is_in_path : int arc -> int list -> bool =
+  fun arc path ->
+    let rec is_arc_in_path path =
+      match path with
+      | [] | [_] -> false (* A path must have at least two nodes to have an arc *)
+      | node1 :: node2 :: rest ->
+        if (node2, node1) = (arc.src, arc.tgt) then
           true
         else
           is_arc_in_path (node2 :: rest)

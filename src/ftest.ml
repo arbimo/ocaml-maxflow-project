@@ -42,7 +42,7 @@ let () =
   let new_flow_1 : int = Option.value new_flow_optional_1 ~default:0 in
   Printf.printf "Flow 1: %d\n" new_flow_1 ;
 
-  let flow_graph_1 = update_flow_graph flow_graph_0 (fun arc -> check_if_arc_is_in_path arc path_1) new_flow_1 in
+  let flow_graph_1 = update_flow_graph flow_graph_0 (fun arc -> check_if_arc_is_in_path arc path_1) (fun arc -> check_if_backward_arc_is_in_path arc path_1) new_flow_1 in
 
   (* iteration 2 *)
 
@@ -53,7 +53,7 @@ let () =
   let new_flow_2 : int = Option.value new_flow_optional_2 ~default:0 in
   Printf.printf "Flow 2: %d\n" new_flow_2 ;
 
-  let flow_graph_2 = update_flow_graph flow_graph_1 (fun arc -> check_if_arc_is_in_path arc path_2) new_flow_2 in
+  let flow_graph_2 = update_flow_graph flow_graph_1 (fun arc -> check_if_arc_is_in_path arc path_2) (fun arc -> check_if_backward_arc_is_in_path arc path_2) new_flow_2 in
 
   (* iteration 3 *)
 
@@ -64,7 +64,7 @@ let () =
   let new_flow_3 : int = Option.value new_flow_optional_3 ~default:0 in
   Printf.printf "Flow 3: %d\n" new_flow_3 ;
 
-  let flow_graph_3 = update_flow_graph flow_graph_2 (fun arc -> check_if_arc_is_in_path arc path_3) new_flow_3 in
+  let flow_graph_3 = update_flow_graph flow_graph_2 (fun arc -> check_if_arc_is_in_path arc path_3) (fun arc -> check_if_backward_arc_is_in_path arc path_3) new_flow_3 in
 
   (* save result to file *)
 
