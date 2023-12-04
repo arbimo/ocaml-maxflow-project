@@ -19,7 +19,6 @@ let update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph =
       e_fold
         original_graph
         (fun acc_graph arc ->
-          (* Perform some transformation or condition on the arc and accumulate the result in the new graph *)
           let modified_arc =
             if condition arc then
               { arc with lbl = arc.lbl + increment }
@@ -27,7 +26,7 @@ let update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph =
               arc
           in
           new_arc acc_graph modified_arc)
-        empty_graph
+        original_graph
     in
     new_graph
   
