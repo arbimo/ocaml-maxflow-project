@@ -12,20 +12,24 @@ let add_arc graph id1 id2 n =
   | Some arc -> new_arc graph {src=arc.src; tgt=arc.tgt; lbl=arc.lbl+n}
 
 let create_flow_graph graph = gmap graph (fun _ -> 0)
-
-(*let update_arc_flow graph src_id dest_id flow = 
-  match (find_arc graph src_id dest_id) with
-  | Some arc -> arc.lbl <- arc.lbl + flow
-  | None -> ()*)
-
-let update_arc_flow graph src_id dest_id flow = gmap graph (fun arc -> if arc.src = src_id && arc.tgt = dest_id then (arc.lbl + flow))
-
-(*let update_flow_graph graph node_ids new_flow = 
-  let mylength_acu_better l =
-    let rec loop acu l = match l with
-      | Empty -> acu
-      | Cell(_, tail) -> loop (acu + 1) tail
+  
+let update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph =
+  fun original_graph condition increment ->
+    let new_graph =
+      e_fold
+        original_graph
+        (fun acc_graph arc ->
+          (* Perform some transformation or condition on the arc and accumulate the result in the new graph *)
+          let modified_arc =
+            if condition arc then
+              { arc with lbl = arc.lbl + increment }
+            else
+              arc
+          in
+          new_arc acc_graph modified_arc)
+        empty_graph
     in
-    loop 0 l ;;*)
+    new_graph
+  
 
-(*let find_max_possible_flow graph node_ids = e_fold graph (fun acu arc -> if List.mem arc.src myList) 0*)
+    
