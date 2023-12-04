@@ -17,6 +17,6 @@ val check_if_backward_arc_is_in_path : int arc -> int list -> bool
 
 val find_max_flow_on_path : int graph -> int graph -> int list -> int option
 
-val while_loop : ('a -> bool) -> ('a -> unit) -> 'a -> unit
+(*val while_loop : ('a -> bool) -> ('a -> unit) -> 'a -> unit*)
 
 
