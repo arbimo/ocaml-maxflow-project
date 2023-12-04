@@ -35,7 +35,7 @@ let () =
 
   (* iteration 1 *)
 
-  let path_1 : int list = [0; 2; 4; 5] in
+  let path_1 : int list = [0; 1; 4; 5] in
   Printf.printf "Path 1: [%s]\n" (String.concat "; " (List.map string_of_int path_1)) ;
 
   let new_flow_optional_1 : int option = find_max_flow_on_path graph flow_graph_0 path_1 in
@@ -57,7 +57,7 @@ let () =
 
   (* iteration 3 *)
 
-  let path_3 : int list = [0; 1; 4; 5] in
+  let path_3 : int list = [0; 3; 4; 1; 2; 5] in
   Printf.printf "Path 3: [%s]\n" (String.concat "; " (List.map string_of_int path_3)) ;
 
   let new_flow_optional_3 : int option = find_max_flow_on_path graph flow_graph_2 path_3 in
