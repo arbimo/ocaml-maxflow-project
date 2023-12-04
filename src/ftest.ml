@@ -1,5 +1,6 @@
 open Gfile
 open Tools
+open Fulkerson
     
 let () =
 
@@ -31,12 +32,24 @@ let () =
   (*let g = clone_nodes graph in*)
 
   let flow_graph_1 = create_flow_graph graph in
-  let flow_graph_2 = update_flow_graph flow_graph_1 (fun _ -> true) 5 in
+  let flow_graph_2 = update_flow_graph flow_graph_1 (fun _ -> true) 4 in
 
   let string_flow_graph = gmap flow_graph_2 (fun x -> string_of_int x) in
 
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile string_flow_graph in
 
-  () 
+
+  (* let g = clone_nodes graph in *)
+  let () = aff (dfs graph 0 [] 3) ; 
+  Printf.printf "\n\n" ;
+  hash 
+  in ()
+
+  
+
+  (* Rewrite the graph that has been read. *)
+  (* let () = write_file outfile g in
+
+  ()  *)
 
