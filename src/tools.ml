@@ -29,6 +29,20 @@ let update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph =
         original_graph
     in
     new_graph
+
+let check_if_arc_is_in_path : int arc -> int list -> bool =
+  fun arc path ->
+    let rec is_arc_in_path path =
+      match path with
+      | [] | [_] -> false (* A path must have at least two nodes to have an arc *)
+      | node1 :: node2 :: rest ->
+        if (node1, node2) = (arc.src, arc.tgt) || (node1, node2) = (arc.tgt, arc.src) then
+          true
+        else
+          is_arc_in_path (node2 :: rest)
+    in
+    is_arc_in_path path
+
   
 
     

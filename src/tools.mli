@@ -11,3 +11,5 @@ val create_flow_graph: 'a graph -> int graph
 
 val update_flow_graph : int graph -> (int arc -> bool) -> int -> int graph
 
+val check_if_arc_is_in_path : int arc -> int list -> bool
+
