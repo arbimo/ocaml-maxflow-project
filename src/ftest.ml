@@ -30,10 +30,10 @@ let () =
   (* Open file *)
   let graph = from_file infile in
   (* let g = clone_nodes graph in *)
-  let () = aff (dfs graph 0 [] 3) ; 
+  let () = aff (find_path graph 0 4) ; 
   Printf.printf "\n\n" ;
-  hash 
   in ()
+  (* export outfile graph  *)
 
   
 
