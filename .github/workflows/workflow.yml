@@ -11,11 +11,10 @@ jobs:
       matrix:
         os:
 #          - macos-latest
-#          - ubuntu-latest
+         - ubuntu-latest
 #          - windows-latest
-          - ubuntu-18.04
         ocaml-version:
-          - 4.11.0
+          - 4.14.0
 #          - 4.10.1
 #          - 4.09.1
 #          - 4.08.1
@@ -39,7 +38,7 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - run: opam install ocamlbuild
+      - run: opam install dune
       - name: Build project
         run: eval $(opam env) && make build
       - name: Run demo
