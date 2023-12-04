@@ -87,6 +87,13 @@ let find_max_flow_on_path : int graph -> int graph -> int list -> int option =
     in
     find_max_flow_on_path path
 
+let rec while_loop condition action x =
+  if condition x then begin
+    action x;  (* Execute the action *)
+    while_loop condition action x  (* Recursive call for the next iteration *)
+  end else
+    ()
+
 
 
   
