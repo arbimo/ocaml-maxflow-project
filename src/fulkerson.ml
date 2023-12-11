@@ -38,7 +38,7 @@ let rec aff nodes =
   | [] -> ()
   | x::rest -> Printf.printf "%d " x ; aff rest 
 
-let iterate graph flow_graph src tgt =
+let iterate_ford_fulkerson graph flow_graph src tgt =
   let path : int list = find_path graph src tgt in
   Printf.printf "Path: [%s]\n" (String.concat "; " (List.map string_of_int path)) ;
 
@@ -50,4 +50,3 @@ let iterate graph flow_graph src tgt =
 
 
 
-  

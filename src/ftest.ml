@@ -36,19 +36,9 @@ let () =
 
   let flow_graph = create_flow_graph graph in
 
-  (* iteration 1 *)
-
-  let flow_graph = iterate graph flow_graph source target in
-
-  (* iteration 2 *)
-
-  let flow_graph = iterate graph flow_graph source target in
-
-  (* iteration 3 *)
-
-  let flow_graph = iterate graph flow_graph source target in
-
-  (* save result to file *)
+  let flow_graph = iterate_ford_fulkerson graph flow_graph source target in
+  let flow_graph = iterate_ford_fulkerson graph flow_graph source target in
+  let flow_graph = iterate_ford_fulkerson graph flow_graph source target in
 
   let string_flow_graph = gmap flow_graph (fun x -> string_of_int x) in
 
@@ -57,10 +47,3 @@ let () =
 
   ()
 
-
-  
-  (*(* let g = clone_nodes graph in *)
-  let () = aff (dfs graph 0 [] 3) ; 
-  Printf.printf "\n\n" ;
-  hash 
-  in () *)
