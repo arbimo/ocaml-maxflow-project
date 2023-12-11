@@ -36,9 +36,7 @@ let () =
 
   let flow_graph = create_flow_graph graph in
 
-  let flow_graph = iterate_ford_fulkerson graph flow_graph source target in
-  let flow_graph = iterate_ford_fulkerson graph flow_graph source target in
-  let flow_graph = iterate_ford_fulkerson graph flow_graph source target in
+  let flow_graph = run_ford_fulkerson graph flow_graph source target in
 
   let string_flow_graph = gmap flow_graph (fun x -> string_of_int x) in
 
