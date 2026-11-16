@@ -1,4 +1,6 @@
 open Gfile
+open Tools
+(*open Graph*)
     
 let () =
 
@@ -15,7 +17,7 @@ let () =
     end ;
 
 
-  (* Arguments are : infile(1) source-id(2) sink-id(3) outfile(4) *)
+  (* Arguments are : infile(1) source-id(2) sink-id(3) outfile(4) *) 
   
   let infile = Sys.argv.(1)
   and outfile = Sys.argv.(4)
@@ -26,8 +28,10 @@ let () =
   in
 
   (* Open file *)
-  let graph = from_file infile in
+  (* let graph = from_file infile in *)
 
+  let graph = gmap (from_file infile) (fun _a -> ":)") in
+  
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile graph in
 
